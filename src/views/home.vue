@@ -6,15 +6,7 @@
 
 <script>
 export default {
-  name: 'home',
-  data: {
-
-  },
-  mounted () {
-
-  },
-  methods: {
-  }
+  name: 'home'
 }
 </script>
 <style lang='scss'>

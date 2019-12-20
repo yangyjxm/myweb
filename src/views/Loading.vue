@@ -25,7 +25,7 @@ export default {
       })
     },
     toHome () {
-      this.$router.push('about')
+      this.$router.push('login')
     }
   }
 }
