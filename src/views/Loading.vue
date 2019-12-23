@@ -1,6 +1,7 @@
 <template>
-  <div class="home">
-    <div class="loading" @click="toHome()">yangyjxm</div>
+  <div class="welcome">
+    <div class="loading"
+         @click="toHome()">yangyjxm</div>
     <!-- <div class='loading'>happy&nbsp;birthday&nbsp;to&nbsp;pikaqiu</div> -->
   </div>
 </template>
@@ -25,12 +26,13 @@ export default {
       })
     },
     toHome () {
-      this.$router.push('login')
+      this.$router.push('home')
     }
   }
 }
 </script>
 <style lang='scss'>
+// 文字跳跃效果css in js
 @import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan&display=swap");
 
 @function float-text-3d($shadow-color: #bbb, $depth: 10, $floating: false) {
@@ -54,40 +56,30 @@ export default {
   @return $shadows;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-#app {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.home {
-  display: flex;
+.welcome {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
   background: #2980b9;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   width: 100%;
-}
-
-.loading {
-  display: flex;
-  color: white;
-  font-size: 5em;
-  font-family: "Baloo Bhaijaan", cursive;
-  cursor: pointer;
-  // text-transform: uppercase;
-
-  span {
-    text-shadow: float-text-3d($floating: false);
-    transform: translateY(20px);
-    animation: bounce 0.3s ease infinite alternate;
+  .loading {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    margin: 0 auto;
+    color: white;
+    font-size: 5em;
+    font-family: "Baloo Bhaijaan", cursive;
+    cursor: pointer;
+    // text-transform: uppercase;
+    span {
+      text-shadow: float-text-3d($floating: false);
+      transform: translateY(20px);
+      animation: bounce 0.4s ease infinite alternate;
+    }
   }
 }
 
