@@ -1,10 +1,12 @@
 <template>
   <div class="introduction">
-    <div class="block">
+    <div class="block"
+         ref="block">
       <el-row type="flex"
-              justify="space-around">
+              justify="space-around"
+              style="margin-top: 80px">
         <el-col :span="6"
-                v-for="item in commodityList"
+                v-for="(item,idx) in commodityList"
                 :key="item.id">
           <el-card :body-style="{ padding: '0px' }">
             <img src="https://element.eleme.cn/2.0/static/hamburger.50e4091.png"
@@ -18,21 +20,17 @@
                      :key="i.id">
                   {{(index+1) + '.' + i}}
                 </div>
-                <!-- <time class="time">{{ item.profile }}</time> -->
                 <el-button type="text"
-                           class="button">操作按钮</el-button>
+                           class="button"
+                           @click="getDetails(idx)">查看详情>></el-button>
               </div>
             </div>
           </el-card>
         </el-col>
       </el-row>
-      <!-- <el-row>
-
-      </el-row> -->
       <footer>
         <el-button type="primary"
                    @click="router()">填写收货信息</el-button>
-        <!-- <el-button>返回</el-button> -->
       </footer>
     </div>
   </div>
@@ -59,6 +57,9 @@ export default {
   methods: {
     router () {
       this.$router.push({ path: 'purchase' })
+    },
+    getDetails () {
+      this.$refs.block.style.transform = 'rotateY(360deg)'
     }
   }
 }
@@ -72,6 +73,8 @@ export default {
     padding: 30px 0;
     box-shadow: 0 2px 6px 0 rgba($color: #000000, $alpha: 0.4);
     border: 1px solid rgb(187, 187, 187);
+    transition: all 1s;
+    backface-visibility: hidden;
     .time {
       text-align: left;
       line-height: 20px;
@@ -80,7 +83,7 @@ export default {
     }
 
     .bottom {
-      margin-top: 13px;
+      margin: 13px 0;
       line-height: 12px;
     }
 
@@ -98,10 +101,6 @@ export default {
     .clearfix:after {
       display: table;
       content: "";
-    }
-
-    .clearfix:after {
-      clear: both;
     }
 
     footer {

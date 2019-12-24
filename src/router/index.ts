@@ -21,7 +21,6 @@ const routes = [
     meta: {
       title: '首页'
     },
-    // redirect: { name: 'mall' },
     component: LayoutHeader,
     children: [{
       path: '/home',
@@ -31,11 +30,25 @@ const routes = [
         title: '首页'
       }
     }, {
+      path: '/note',
+      name: 'note',
+      component: () => import('../views/notes/NoteList.vue'),
+      meta: {
+        title: '笔记列表页'
+      }
+    }, {
+      path: '/noteDetails',
+      name: 'noteDetails',
+      component: () => import('../views/notes/NoteDetails.vue'),
+      meta: {
+        title: '笔记详情页'
+      }
+    }, {
       path: '/mall',
       name: 'mall',
       component: () => import('../views/mall/Introduction.vue'),
       meta: {
-        title: '商城'
+        title: '橙子商城'
       }
     }, {
       path: '/purchase',
@@ -43,6 +56,13 @@ const routes = [
       component: () => import('../views/mall/Purchase.vue'),
       meta: {
         title: '填写个人信息页'
+      }
+    }, {
+      path: '/suggestion',
+      name: 'suggestion',
+      component: () => import('../views/suggestion/Suggestion.vue'),
+      meta: {
+        title: '我要提建议'
       }
     }]
   },

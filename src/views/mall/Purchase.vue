@@ -17,20 +17,21 @@
           <el-col :span="12">
             <el-form-item label="电话："
                           prop="phone">
-              <el-input v-model="ruleForm.name"
+              <el-input v-model="ruleForm.phone"
                         placeholder="请输入您的电话"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-form-item label="收货地址："
                       prop="address">
-          <el-input v-model="ruleForm.name"
+          <el-input v-model="ruleForm.address"
                     placeholder="请输入您的收货地址"></el-input>
         </el-form-item>
       </el-form>
       <footer>
-        <el-button type="primary">购买</el-button>
-        <el-button>返回</el-button>
+        <el-button type="primary"
+                   @click="submitForm()">购买</el-button>
+        <el-button @click="router()">返回</el-button>
       </footer>
     </div>
   </div>
@@ -54,6 +55,9 @@ export default {
     }
   },
   methods: {
+    router () {
+      this.$router.go(-1)
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

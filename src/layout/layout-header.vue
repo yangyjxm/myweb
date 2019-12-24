@@ -2,6 +2,9 @@
   <div class="layout-hearder">
     <el-container>
       <el-header>
+        <img src="../../public/logo.png"
+             alt="logo"
+             height="60">
         <el-menu :default-active="activeIndex"
                  class="el-menu-demo"
                  mode="horizontal"
@@ -11,10 +14,13 @@
             <template slot="title">工具</template>
             <el-menu-item index="2-1">计算器</el-menu-item>
             <el-menu-item index="2-2">图书馆</el-menu-item>
-            <!-- <el-menu-item index="2-3">选项3</el-menu-item> -->
           </el-submenu>
-          <el-menu-item index="3">商城</el-menu-item>
+          <el-menu-item index="5">笔记</el-menu-item>
+          <el-menu-item index="3">橙子商城</el-menu-item>
+          <el-menu-item index="4">提建议</el-menu-item>
         </el-menu>
+        <!-- <el-button type="primary"
+                   size="mini">登录</el-button> -->
       </el-header>
       <el-container>
         <!-- <el-aside width="200px">Aside</el-aside> -->
@@ -44,6 +50,12 @@ export default {
         case '3':
           this.$router.push({ path: 'mall' })
           break
+        case '4':
+          this.$router.push({ path: 'suggestion' })
+          break
+        case '5':
+          this.$router.push({ path: 'note' })
+          break
       }
     }
   }
@@ -55,12 +67,16 @@ export default {
   background-color: #fff;
   .el-header {
     padding: 0 100px;
-    // ul {
-    //   float: right;
-    // }
+    // position: fixed;
+    // background-color: #fff;
     .el-menu.el-menu--horizontal {
       border: none;
       float: right;
+    }
+    img {
+      height: 100px;
+      top: -20px;
+      position: relative;
     }
   }
 }
