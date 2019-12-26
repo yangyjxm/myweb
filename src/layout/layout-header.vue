@@ -1,60 +1,65 @@
 <template>
   <div class="layout-hearder">
-    <el-container>
-      <el-header>
-        <img src="../../public/logo.png"
-             alt="logo"
-             height="60">
-        <el-menu :default-active="activeIndex"
-                 class="el-menu-demo"
-                 mode="horizontal"
-                 @select="handleSelect">
-          <el-menu-item index="1">首页</el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">工具</template>
-            <el-menu-item index="2-1">计算器</el-menu-item>
-            <el-menu-item index="2-2">图书馆</el-menu-item>
-          </el-submenu>
-          <el-menu-item index="5">笔记</el-menu-item>
-          <el-menu-item index="3">橙子商城</el-menu-item>
-          <el-menu-item index="4">提建议</el-menu-item>
-        </el-menu>
-        <!-- <el-button type="primary"
-                   size="mini">登录</el-button> -->
-      </el-header>
-      <el-container>
-        <!-- <el-aside width="200px">Aside</el-aside> -->
-        <el-main>
-          <router-view />
-        </el-main>
-      </el-container>
-    </el-container>
+    <el-header>
+      <img src="../../public/logo.png"
+           alt="logo"
+           height="60">
+      <el-menu :default-active="activeIndex"
+               mode="horizontal"
+               @select="handleSelect">
+        <el-menu-item index="1">首页</el-menu-item>
+        <el-submenu index="2">
+          <template slot="title">工具</template>
+          <el-menu-item index="2-1">AA计算器</el-menu-item>
+          <el-menu-item index="2-2">政务图书馆</el-menu-item>
+        </el-submenu>
+        <el-menu-item index="5">笔记</el-menu-item>
+        <el-menu-item index="3">商城</el-menu-item>
+        <el-menu-item index="4">提建议</el-menu-item>
+      </el-menu>
+    </el-header>
+    <vue-scroll :ops="ops">
+      <el-main>
+        <router-view />
+      </el-main>
+    </vue-scroll>
   </div>
 </template>
 
 <script>
+import vueScroll from 'vuescroll'
+// import "vuescroll/dist/vuescroll.css"
+
 export default {
   name: 'layout-hearder',
+  components: {
+    vueScroll
+  },
   data () {
     return {
-      activeIndex: '1'
+      activeIndex: '1',
+      ops: {// 在这里设置配置
+        vuescroll: {},
+        scrollPanel: {},
+        rail: {},
+        bar: {}
+      }
     }
   },
   methods: {
     handleSelect (key, keyPath) {
-      console.log(key)
       switch (key) {
         case '1':
-          this.$router.push({ path: 'home' })
+          this.$router.push({ path: '/home' }).catch(err => err)
           break
         case '3':
-          this.$router.push({ path: 'mall' })
+          this.$router.push({ path: '/mall' }).catch(err => err)
           break
         case '4':
-          this.$router.push({ path: 'suggestion' })
+          this.$router.push({ path: '/suggestion' }).catch(err => err)
           break
         case '5':
-          this.$router.push({ path: 'note' })
+          this.$router.push({ path: '/note' }).catch(err => err)
           break
       }
     }
@@ -65,17 +70,24 @@ export default {
 .layout-hearder {
   height: 100%;
   background-color: #fff;
+  overflow: hidden;
   .el-header {
     padding: 0 100px;
-    // position: fixed;
-    // background-color: #fff;
+    position: fixed;
+    position: relative;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    width: 100%;
+    z-index: 2019;
     .el-menu.el-menu--horizontal {
       border: none;
       float: right;
+      background-color: #fff;
     }
     img {
       height: 100px;
-      top: -20px;
+      top: -25px;
       position: relative;
     }
   }

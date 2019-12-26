@@ -43,6 +43,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="3">
+            <canvas width="92"
+                    height="40"
+                    id="captcha"></canvas>
           </el-col>
         </el-row>
       </el-form>
@@ -56,6 +59,8 @@
 </template>
 
 <script>
+// 引入captcha-mini生成验证码
+import CaptchaMini from 'captcha-mini'
 export default {
   name: 'suggestion',
   data () {
@@ -67,6 +72,7 @@ export default {
         phone: '',
         verificationCode: ''
       },
+      checkVerificationCode: '',
       rules: {
         title: { required: true, message: '请输入标题', trigger: 'blur' },
         desc: { required: true, message: '请输入建议内容', trigger: 'blur' },
@@ -76,17 +82,30 @@ export default {
       }
     }
   },
+  mounted () {
+    // 生成验证码
+    let captcha1 = new CaptchaMini()
+    captcha1.draw(document.querySelector('#captcha'), r => {
+      console.log('验证码:', r)
+      this.checkVerificationCode = r
+    })
+  },
   methods: {
+    // 提交建议
     submitForm () {
-      this.$refs.ruleForm.validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
+      if (this.ruleForm.verificationCode === this.checkVerificationCode) {
+        this.$refs.ruleForm.validate((valid) => {
+          if (valid) {
+            alert('submit!')
+          } else {
+            return false
+          }
+        })
+      } else {
+        this.$message.error('验证码错误')
+      }
     },
+    // 重置表单
     resetForm () {
       this.$refs.ruleForm.resetFields()
     }
@@ -97,7 +116,7 @@ export default {
 .suggestion {
   .block {
     width: 70%;
-    min-height: 600px;
+    min-height: 460px;
     margin: 0 auto;
     padding: 30px 0;
     box-shadow: 0 2px 6px 0 rgba($color: #000000, $alpha: 0.4);
@@ -107,10 +126,7 @@ export default {
       margin: 0 auto;
     }
     footer {
-      width: 70%;
       text-align: center;
-      position: absolute;
-      top: 650px;
     }
   }
 }

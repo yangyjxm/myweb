@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     queryDetails () {
-      this.$router.push('noteDetails')
+      this.$router.push({ path: '/note/noteDetails' }).catch(err => err)
     }
   }
 }
@@ -31,7 +31,7 @@ export default {
 <style lang='scss'>
 .noteList {
   .block {
-    width: 70%;
+    width: 66%;
     min-height: 600px;
     margin: 0 auto;
     padding: 30px 0;

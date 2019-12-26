@@ -36,7 +36,7 @@ export default {
       })
     },
     toHome () {
-      this.$router.push('home')
+      this.$router.push({ path: '/index' }).catch(err => err)
     }
   }
 }
