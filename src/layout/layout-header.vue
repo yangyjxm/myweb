@@ -91,5 +91,8 @@ export default {
       position: relative;
     }
   }
+  .el-main {
+    padding: 20px 0;
+  }
 }
 </style>

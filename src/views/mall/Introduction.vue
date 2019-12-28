@@ -47,7 +47,7 @@
                center>
       <el-date-picker v-model="birthday"
                       type="date"
-                      placeholder="选择今年小明的生日">
+                      placeholder="选择今年小明或老杨的生日">
       </el-date-picker>
     </el-dialog>
   </div>
@@ -61,13 +61,13 @@ export default {
       currentDate: new Date(),
       commodityList: [{
         name: '美橙',
-        profile: ['肤质好，面容姣好，颜值高。', '味甜汁多', '靠颜值，更凭实力！']
+        profile: ['肤质好，面容姣好，颜值高。', '味甜汁多。', '靠颜值，更凭实力！']
       }, {
         name: '丑橙',
-        profile: ['丑到极处，也便美到极致。', '我很丑，可是我很温柔', '败絮其外，金玉其中。']
+        profile: ['丑到极处，也便美到极致。', '我很丑，可是我很温柔。', '败絮其外，金玉其中。']
       }, {
         name: '小橙',
-        profile: ['小个子，每个约2两重。', '味极甜', '有能耐，身高无碍。']
+        profile: ['小个子，每个约2两重。', '味极甜。', '有能耐，身高无碍。']
       }],
       selectRole: '我是买家',
       centerDialogVisible: false,
@@ -80,7 +80,7 @@ export default {
     },
     birthday () {
       let day = this.$moment(this.birthday).format('YYYY-MM-DD')
-      if (day === '2019-09-01') {
+      if (day === '2019-09-01' || day === '2019-04-28') {
         this.$router.push({ name: 'management' }).catch(err => err)
       }
     }
@@ -91,15 +91,11 @@ export default {
     },
     getDetails () {
       this.$refs.block.style.transform = 'rotateY(180deg)'
-      // this.$refs.blockBack.style.transform = 'rotateY(180deg)'
       this.$notify.info({
         title: '消息',
         message: '商品详情对接中……',
         offset: 200
       })
-      // setTimeout(() => {
-      // this.$refs.block.style.transform = 'rotateY(180deg)'
-      // }, 2000)
     }
   }
 }
@@ -174,9 +170,12 @@ export default {
   }
   .el-dialog {
     margin-top: 30vh !important;
-  }
-  .el-dialog__body {
-    text-align: center;
+    &__body {
+      text-align: center;
+    }
+    .el-input {
+      width: 252px;
+    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="noteDetails">
+    <div class="title">Centen OS下的mysql安装与配置</div>
     <div class="block">
-      <div class="title">Centen OS下的mysql安装与配置</div>
       <div class="content"
            v-html="compiledMarkdown"></div>
     </div>
@@ -78,18 +78,21 @@ yum-config-manager --disable mysql56-community
 </script>
 <style lang='scss'>
 .noteDetails {
+  .title {
+    width: 100%;
+    line-height: 200px;
+    text-align: center;
+    color: #fff;
+    font-size: 36px;
+    font-weight: bold;
+    font-family: "Microsoft YaHei";
+    background-image: url("../../asset/image/noteTitlePicture.jpeg");
+  }
   .block {
     width: 70%;
     min-height: 600px;
     margin: 0 auto;
     padding: 30px 0;
-    .title {
-      width: 100%;
-      text-align: center;
-      color: #333;
-      font-size: 24px;
-      font-weight: bold;
-    }
   }
 }
 </style>

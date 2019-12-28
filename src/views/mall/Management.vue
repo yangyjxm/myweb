@@ -21,20 +21,37 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="下单日期："
-                      prop="date">
-          <el-date-picker v-model="searchForm.date"
-                          type="daterange"
-                          range-separator="至"
-                          start-placeholder="开始日期"
-                          end-placeholder="结束日期">
-          </el-date-picker>
-        </el-form-item>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="下单日期："
+                          prop="date">
+              <el-date-picker v-model="searchForm.date"
+                              type="daterange"
+                              range-separator="至"
+                              start-placeholder="开始日期"
+                              end-placeholder="结束日期">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="订单状态："
+                          prop="status">
+              <el-select v-model="searchForm.status"
+                         placeholder="请选择订单状态">
+                <el-option v-for="item in statusOptions"
+                           :key="item.value"
+                           :label="item.label"
+                           :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <footer>
         <el-button type="primary"
                    @click="submitForm('searchForm')">查询</el-button>
-        <el-button @click="router('searchForm')">重置</el-button>
+        <el-button @click="resetForm('searchForm')">重置</el-button>
       </footer>
     </div>
     <div class="block">
@@ -43,7 +60,7 @@
                 style="width: 100%"
                 :row-class-name="tableRowClassName">
         <el-table-column prop="date"
-                         label="日期"
+                         label="下单日期"
                          width="180">
         </el-table-column>
         <el-table-column prop="name"
@@ -52,6 +69,9 @@
         </el-table-column>
         <el-table-column prop="address"
                          label="地址">
+        </el-table-column>
+        <el-table-column prop="status"
+                         label="订单状态">
         </el-table-column>
       </el-table>
     </div>
@@ -67,10 +87,87 @@ export default {
       searchForm: {
         name: '',
         phone: '',
-        date: []
+        date: [],
+        status: ''
       },
+      statusOptions: [{
+        value: '选项1',
+        label: '黄金糕'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }, {
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
+      }],
       tableData: [{
         date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-03',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1518 弄'
       }, {
@@ -97,7 +194,6 @@ export default {
           return false
         }
       })
-      this.$router.push({ name: 'payment', params: { price: this.price } }).catch(err => err)
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
@@ -118,7 +214,7 @@ export default {
   .block {
     width: 70%;
     font-size: 60px;
-    margin: 0 auto 20px;
+    margin: 0 auto 40px;
     // min-height: 460px;
     padding: 30px;
     box-shadow: 0 2px 6px 0 rgba($color: #000000, $alpha: 0.4);

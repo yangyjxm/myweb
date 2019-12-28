@@ -1,44 +1,12 @@
 <template>
   <div class="downloadPicture">
-    <div class="imageDom"
-         ref="imageDom">
-      `亲爱的xxx
-      这是您第xx次登录省"互联网+监管"系统
-
-      您的第一次访问时间是2019-11-23 10：03 您呆了xxx分钟
-      您的日均在线时间是xx分钟
-
-      您的第一个操作是xx菜单【除首页外的最细粒度的菜单】
-      今年您使用最多的是xxx菜单, xx菜单, xx菜单【取前三名】
-      您查的最多次数的监管对象是xxx，总共有xx次
-
-      本年度您处理了xx个审核任务，平均流转时间是xx
-
-      包括xxx个风险预警、Xx个信息报送
-
-      本年度您发布了xxx个公告
-      上报了xxx个信息
-
-      本年度您有xxx个执法任务，您辛苦了！
-
-      ---没有意见的
-      哎呀，我们发现您还没给我们提过意见，是找不到地方还是对我们很满意呢？
-
-      不要吝啬，您的每个细小的意见和建议对我们都很重要，当然要表扬也是可以的哦！请戳xxx给我们意见吧
-
-      ---有意见的
-      本年度您给我们提了xx次建议和意见，感谢您的支持，我们会持续改进更好服务大家！`
-      <!-- <el-card :body-style="{ padding: '0px' }">
-        <img src="https://element.eleme.cn/2.0/static/hamburger.50e4091.png" class="image">
-        <div style="padding: 14px;">
-          <span>好吃的汉堡</span>
-          <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button">操作按钮</el-button>
-          </div>
-        </div>
-      </el-card> -->
-    </div>
+    <img id="scream"
+         src="../asset/image/img/bg.jpg"
+         alt="The Scream"
+         width="1">
+    <canvas id="annualReport"
+            width="900"
+            height="3519"></canvas>
     <el-button @click="downloadPicture()"
                type="primary"
                size="mini">下载</el-button>
@@ -52,24 +20,98 @@ export default {
   data () {
     return {
       currentDate: new Date(),
-      imgUrl: ''
+      imgUrl: '',
+      userName: '张晓玲'
     }
   },
   methods: {
     downloadPicture () {
-      html2canvas(this.$refs.imageDom).then(canvas => {
-        this.imgUrl = canvas.toDataURL('image/png')
-        console.log('imgUrl:' + this.imgUrl)
-        // 创建隐藏的可下载链接
-        let eleLink = document.createElement('a')
-        eleLink.href = this.imgUrl // 转换后的图片地址
-        eleLink.download = '我的年度回顾'
-        // 触发点击
-        document.body.appendChild(eleLink)
-        eleLink.click()
-        // 然后移除
-        document.body.removeChild(eleLink)
-      })
+      // html2canvas(this.$refs.imageDom).then(canvas => {
+      let oc = document.getElementById('annualReport')
+      this.imgUrl = oc.toDataURL('image/png')
+      console.log('imgUrl:' + this.imgUrl)
+      // 创建隐藏的可下载链接
+      let eleLink = document.createElement('a')
+      eleLink.href = this.imgUrl // 转换后的图片地址
+      eleLink.download = '我的年度回顾'
+      // 触发点击
+      document.body.appendChild(eleLink)
+      eleLink.click()
+      // 然后移除
+      document.body.removeChild(eleLink)
+      // })
+    }
+  },
+  mounted () {
+    let oc = document.getElementById('annualReport')
+    let ctx = oc.getContext('2d')
+    let img = document.getElementById('scream')
+    let that = this
+    img.onload = function () {
+      ctx.drawImage(img, 10, 10, 900, 3519)
+      ctx.font = '20px Arial'
+      ctx.fillText('亲爱的', 380, 500)
+      ctx.fillText('这是您第', 280, 550)
+      ctx.fillText('次登录省“互联网+监管”系统', 430, 550)
+      //
+      ctx.fillText('您第一次访问的时间是', 140, 800)
+      ctx.fillText('您待了', 140, 900)
+      ctx.fillText('分钟', 250, 900)
+      ctx.fillText('您的日均在线时间是', 140, 950)
+      ctx.fillText('分钟', 385, 950)
+      //
+      ctx.fillText('您操作的第一个菜单是', 500, 1280)
+      ctx.fillText('今年您使用最多的菜单是', 500, 1380)
+      //
+      ctx.fillText('您查的监管对象中次数最多的是', 120, 1700)
+      ctx.fillText('共计', 120, 1800)
+      ctx.fillText('分钟', 220, 1800)
+      //
+      ctx.fillText('今年您处理的审核任务共有', 500, 2100)
+      ctx.fillText('平均流转时间是', 500, 2200)
+      ctx.fillText('小时', 700, 2200)
+      ctx.fillText('包括', 500, 2250)
+      ctx.fillText('个风险预警', 620, 2250)
+      ctx.fillText('和', 500, 2300)
+      ctx.fillText('个信息保送', 580, 2300)
+      //
+      ctx.fillText('本年度您发布的公告数量有', 120, 2500)
+      ctx.fillText('上报了', 120, 2600)
+      ctx.fillText('个信息', 260, 2600)
+      //
+      ctx.fillText('本年度您的执法任务有', 500, 2900)
+      // 橘色小字
+      ctx.font = '28px Arial'
+      ctx.textAlign = 'center'
+      ctx.fillStyle = '#f3653b'
+      ctx.fillText(that.userName, 500, 500)
+      ctx.fillText('328', 395, 550)
+      //
+      ctx.fillText('25', 225, 900)
+      ctx.fillText('25', 355, 950)
+      //
+      ctx.textAlign = 'left'
+      ctx.fillText('待办任务', 500, 1430)
+      //
+      ctx.textAlign = 'center'
+      ctx.fillText('20', 190, 1800)
+      //
+      ctx.fillText('19', 670, 2200)
+      ctx.fillText('32', 580, 2250)
+      ctx.fillText('14', 548, 2300)
+      //
+      ctx.fillText('153', 215, 2600)
+      //
+      ctx.textAlign = 'left'
+      ctx.fillText('您辛苦了！', 500, 3000)
+      // 橘色粗体
+      ctx.font = 'bold 28px Arial'
+      ctx.fillText('2019-12-14', 140, 850)
+      ctx.fillText('待办任务', 500, 1330)
+      ctx.fillText('国税', 120, 1750)
+      ctx.fillText('218', 500, 2150)
+      ctx.fillText('98', 120, 2550)
+      ctx.fillText('106', 500, 2950)
     }
   }
 }
