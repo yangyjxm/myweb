@@ -1,6 +1,16 @@
 <template>
   <div class="noteDetails">
-    <div class="title">Centen OS下的mysql安装与配置</div>
+    <div class="header">
+      <div class="header-block">
+        <div class="header-block-title">
+          Centen OS下的mysql安装与配置
+        </div>
+        <div class="header-block-date">
+          <i class="el-icon-date"></i>
+          {{this.date}}
+        </div>
+      </div>
+    </div>
     <div class="block">
       <div class="content"
            v-html="compiledMarkdown"></div>
@@ -26,6 +36,7 @@ export default {
   name: 'noteDetails',
   data () {
     return {
+      date: '',
       content: `### 前言
 ##### CentOS 7 版本将MySQL数据库软件从默认的程序列表中移除，用MariaDB代替了，MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可。开发这个分支的原因之一是：甲骨文公司收购了MySQL后，有将MySQL闭源的潜在风险，因此社区采用分支的方式来避开这个风险。MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。
 1. 卸载mariadb
@@ -67,6 +78,9 @@ yum-config-manager --disable mysql56-community
 -p  显示建立这些连接的程序名`
     }
   },
+  created () {
+    this.date = this.$moment(new Date()).format('YYYY-MM-DD')
+  },
   methods: {
   },
   computed: {
@@ -78,15 +92,31 @@ yum-config-manager --disable mysql56-community
 </script>
 <style lang='scss'>
 .noteDetails {
-  .title {
+  .header {
     width: 100%;
-    line-height: 200px;
-    text-align: center;
-    color: #fff;
-    font-size: 36px;
-    font-weight: bold;
-    font-family: "Microsoft YaHei";
+    // line-height: 200px;
+    // text-align: center;
+    height: 200px;
     background-image: url("../../asset/image/noteTitlePicture.jpeg");
+    &-block {
+      position: relative;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-family: "Microsoft YaHei";
+      padding-left: 25%;
+      color: #fff;
+      // line-height: 200px;
+      &-title {
+        // margin-left: -50%;
+        font-size: 36px;
+        font-weight: bold;
+      }
+      &-date {
+        // margin-left: -50%;
+        font-size: 20px;
+      }
+    }
   }
   .block {
     width: 70%;

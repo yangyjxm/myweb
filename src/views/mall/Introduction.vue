@@ -47,7 +47,7 @@
                center>
       <el-date-picker v-model="birthday"
                       type="date"
-                      placeholder="选择今年小明或老杨的生日">
+                      placeholder="选择任一年小明或老杨的生日">
       </el-date-picker>
     </el-dialog>
   </div>
@@ -79,18 +79,20 @@ export default {
       this.centerDialogVisible = (this.selectRole === '我是老板')
     },
     birthday () {
-      let day = this.$moment(this.birthday).format('YYYY-MM-DD')
-      if (day === '2019-09-01' || day === '2019-04-28') {
+      let day = this.$moment(this.birthday).format('MM-DD')
+      if (day === '09-01' || day === '04-28') {
         this.$router.push({ name: 'management' }).catch(err => err)
       }
     }
   },
   methods: {
+    // 跳转到下单页面
     router () {
       this.$router.push({ path: '/mall/purchase' }).catch(err => err)
     },
+    // 查看不同品种橙子详情
     getDetails () {
-      this.$refs.block.style.transform = 'rotateY(180deg)'
+      // this.$refs.block.style.transform = 'rotateY(180deg)'
       this.$notify.info({
         title: '消息',
         message: '商品详情对接中……',

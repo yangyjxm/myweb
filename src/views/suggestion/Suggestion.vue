@@ -15,7 +15,7 @@
                       prop="desc">
           <el-input type="textarea"
                     v-model="ruleForm.desc"
-                    :autosize="{ minRows: 4, maxRows: 10}"
+                    :autosize="{ minRows: 8, maxRows: 16}"
                     placeholder="请输入建议内容"></el-input>
         </el-form-item>
         <el-row :gutter="20">
@@ -86,7 +86,6 @@ export default {
     // 生成验证码
     let captcha1 = new CaptchaMini()
     captcha1.draw(document.querySelector('#captcha'), r => {
-      console.log('验证码:', r)
       this.checkVerificationCode = r
     })
   },

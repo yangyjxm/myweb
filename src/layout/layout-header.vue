@@ -3,7 +3,8 @@
     <el-header>
       <img src="../../public/logo.png"
            alt="logo"
-           height="60">
+           height="60"
+           @click="backToHome()">
       <el-menu :default-active="activeIndex"
                mode="horizontal"
                @select="handleSelect">
@@ -16,6 +17,13 @@
         <el-menu-item index="5">笔记</el-menu-item>
         <el-menu-item index="3">商城</el-menu-item>
         <el-menu-item index="4">提建议</el-menu-item>
+        <el-button round
+                   size="mini"
+                   @click="router('register')">register</el-button>
+        <el-button type="primary"
+                   round
+                   size="mini"
+                   @click="router('sign in')">sign in</el-button>
       </el-menu>
     </el-header>
     <vue-scroll :ops="ops">
@@ -47,6 +55,22 @@ export default {
     }
   },
   methods: {
+    // 回到首页
+    backToHome () {
+      this.$router.push({ path: '/home' }).catch(err => err)
+    },
+    // 跳转登录、注册
+    router (type) {
+      switch (type) {
+        case 'register':
+          this.$router.push({ path: '/login', params: { case: type } })
+          break
+        case 'sign in':
+          this.$router.push({ path: '/login', params: { case: type } })
+          break
+      }
+    },
+    // 切换tab页
     handleSelect (key, keyPath) {
       switch (key) {
         case '1':
@@ -84,6 +108,9 @@ export default {
       border: none;
       float: right;
       background-color: #fff;
+    }
+    .el-button {
+      margin-top: 13px;
     }
     img {
       height: 100px;

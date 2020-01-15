@@ -16,7 +16,7 @@
           <el-col :span="12">
             <el-form-item label="电话："
                           prop="phone">
-              <el-input v-model="searchForm.phone"
+              <el-input v-model.number="searchForm.phone"
                         placeholder="请输入检索电话"></el-input>
             </el-form-item>
           </el-col>
@@ -24,7 +24,7 @@
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="下单日期："
-                          prop="date">
+                          prop="createTime">
               <el-date-picker v-model="searchForm.date"
                               type="daterange"
                               range-separator="至"
@@ -50,16 +50,15 @@
       </el-form>
       <footer>
         <el-button type="primary"
-                   @click="submitForm('searchForm')">查询</el-button>
+                   @click="submitForm()">查询</el-button>
         <el-button @click="resetForm('searchForm')">重置</el-button>
       </footer>
     </div>
     <div class="block">
-
       <el-table :data="tableData"
                 style="width: 100%"
                 :row-class-name="tableRowClassName">
-        <el-table-column prop="date"
+        <el-table-column prop="createTime"
                          label="下单日期"
                          width="180">
         </el-table-column>
@@ -80,6 +79,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'management',
   data () {
@@ -91,110 +91,42 @@ export default {
         status: ''
       },
       statusOptions: [{
-        value: '选项1',
-        label: '黄金糕'
+        value: '10',
+        label: '未付款'
       }, {
-        value: '选项2',
-        label: '双皮奶'
+        value: '20',
+        label: '待发货'
       }, {
-        value: '选项3',
-        label: '蚵仔煎'
+        value: '30',
+        label: '运输中'
       }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
+        value: '40',
+        label: '已签收'
       }],
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }]
+      tableData: []
     }
   },
+  created () {
+    this.submitForm()
+  },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          return false
-        }
+    // 查询
+    submitForm () {
+      this.$api.queryOrderList({
+        name: this.searchForm.name,
+        phone: this.searchForm.phone,
+        createTime: this.searchForm.createTime,
+        status: this.searchForm.status
+      }).then(res => {
+        res.data.forEach(item => {
+          item.createTime = this.$moment(item.createTime).format('YYYY-MM-DD HH:mm')
+        })
+        this.tableData = res.data
+      }).catch(error => {
+        console.log(error)
       })
     },
+    // 充值搜索条件
     resetForm (formName) {
       this.$refs[formName].resetFields()
     },
@@ -219,6 +151,10 @@ export default {
     padding: 30px;
     box-shadow: 0 2px 6px 0 rgba($color: #000000, $alpha: 0.4);
     border: 1px solid rgb(187, 187, 187);
+    .el-date-editor,
+    .el-select {
+      width: 100%;
+    }
   }
   footer {
     text-align: center;

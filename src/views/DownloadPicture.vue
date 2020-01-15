@@ -29,7 +29,6 @@ export default {
       // html2canvas(this.$refs.imageDom).then(canvas => {
       let oc = document.getElementById('annualReport')
       this.imgUrl = oc.toDataURL('image/png')
-      console.log('imgUrl:' + this.imgUrl)
       // 创建隐藏的可下载链接
       let eleLink = document.createElement('a')
       eleLink.href = this.imgUrl // 转换后的图片地址

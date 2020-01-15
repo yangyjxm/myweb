@@ -121,12 +121,22 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          this.$api.addNewOrder({
+            // orderNo: 'PC' + this.$moment(new Date()).format('YYYYMMDD'),
+            orderNo: parseInt(this.$moment(new Date()).format('MMDDHHmmss')),
+            payment: this.price,
+            status: 10,
+            name: this.ruleForm.name,
+            phone: this.ruleForm.phone,
+            address: this.ruleForm.address,
+            createTime: this.$moment(new Date(), this.$moment.defaultFormat)
+          }).then(res => {
+            this.$router.push({ name: 'payment', params: { price: this.price } }).catch(err => err)
+          })
         } else {
           return false
         }
       })
-      this.$router.push({ name: 'payment', params: { price: this.price } }).catch(err => err)
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()

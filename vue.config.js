@@ -1,8 +1,7 @@
 const PROXYROOT = 'http://111.229.251.142:8888/'
+const PROXYROOT_NGINX = 'http://111.229.251.142/'
 module.exports = {
-  // baseUrl: process.env.NODE_ENV === 'production'
-  //   ? '//your_url'
-  //   : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   outputDir: 'dist',
   assetsDir: 'static',
   // webpack 配置，键值对象时会合并配置，为方法时会改写配置
@@ -24,22 +23,22 @@ module.exports = {
   },
 
   devServer: {
-    open: true,
-    // host: '127.0.0.1',
-    port: 1109,
-    https: false,
-    hotOnly: false,
+    disableHostCheck: true,
+    host: 'localhost',
+    port: '1109',
     proxy: {
       '/api': {
-        target: PROXYROOT,
-        pathrewrite: {
-
-        }
+        target: PROXYROOT_NGINX,
+        changeOrigin: true
+        // pathRewrite: {
+        //   '^/api': ''
+        // }
       }
     },
 
     before: app => {}
   },
+
   // 构建时开启多进程处理 babel 编译
   parallel: require('os').cpus().length > 1,
 

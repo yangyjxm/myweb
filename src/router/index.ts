@@ -10,6 +10,11 @@ const routes = [
     name: 'loading',
     component: () => import('../views/Loading.vue')
   },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue')
+  },
   // >>>>>>>首页栏目
   {
     path: '/index',
