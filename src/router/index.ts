@@ -5,11 +5,11 @@ import LayoutHeader from '@/layout/layout-header.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '',
-    name: 'loading',
-    component: () => import('../views/Loading.vue')
-  },
+  // {
+  //   path: '',
+  //   name: 'loading',
+  //   component: () => import('../views/Loading.vue')
+  // },
   {
     path: '/login',
     name: 'login',
@@ -17,7 +17,7 @@ const routes = [
   },
   // >>>>>>>首页栏目
   {
-    path: '/index',
+    path: '',
     name: 'index',
     meta: {
       title: '首页'

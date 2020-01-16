@@ -23,10 +23,6 @@ export default {
       let loading = document.querySelector('.loading')
       let letters = loading.textContent.split('')
       loading.textContent = ''
-      // let display = setInterval(item => {
-      //   this.$refs.text.style.opacity += 0.1
-      //   if (this.$refs.text.style.opacity === 1) clearInterval(display)
-      // }, 100)
       letters.forEach((letter, i) => {
         let span = document.createElement('span')
         span.textContent = letter
@@ -70,11 +66,12 @@ export default {
 }
 
 .jumpFont {
-  height: 100%;
+  // height: 100%;
   width: 100%;
   .loading {
+    // visibility: hidden;
     position: absolute;
-    top: 30%;
+    top: 12%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;

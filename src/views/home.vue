@@ -1,6 +1,14 @@
 <template>
   <div class="home">
     <div class="loading">
+      <el-carousel :interval="4000"
+                   type="card"
+                   height="400px">
+        <el-carousel-item v-for="item in 4"
+                          :key="item">
+          <h3>{{ item*1111111 }}</h3>
+        </el-carousel-item>
+      </el-carousel>
       <div class="loading-point"
            v-for="(item,index) in 5"
            :key="item.id"
@@ -19,11 +27,24 @@ export default {
 .home {
   .loading {
     text-align: center;
-    padding-top: 10%;
+    padding-top: 2%;
+    .el-carousel__item h3 {
+      color: #475669;
+      font-size: 14px;
+      opacity: 0.75;
+      line-height: 200px;
+      margin: 0;
+    }
+    .el-carousel__item:nth-child(2n) {
+      background-color: #99a9bf;
+    }
+    .el-carousel__item:nth-child(2n + 1) {
+      background-color: #d3dce6;
+    }
     &-point {
       width: 20px;
       height: 20px;
-      margin: 0 8px;
+      margin: 20px 8px;
       display: inline-block;
       border-radius: 50%;
       background-color: #2c3e50;

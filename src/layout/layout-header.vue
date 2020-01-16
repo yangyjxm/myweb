@@ -19,11 +19,11 @@
         <el-menu-item index="4">提建议</el-menu-item>
         <el-button round
                    size="mini"
-                   @click="router('register')">register</el-button>
+                   @click="router('注册')">register</el-button>
         <el-button type="primary"
                    round
                    size="mini"
-                   @click="router('sign in')">sign in</el-button>
+                   @click="router('登录')">sign in</el-button>
       </el-menu>
     </el-header>
     <vue-scroll :ops="ops">
@@ -45,7 +45,7 @@ export default {
   },
   data () {
     return {
-      activeIndex: '1',
+      activeIndex: this.$store.state.activeIndex,
       ops: {// 在这里设置配置
         vuescroll: {},
         scrollPanel: {},
@@ -61,29 +61,26 @@ export default {
     },
     // 跳转登录、注册
     router (type) {
-      switch (type) {
-        case 'register':
-          this.$router.push({ path: '/login', params: { case: type } })
-          break
-        case 'sign in':
-          this.$router.push({ path: '/login', params: { case: type } })
-          break
-      }
+      this.$router.push({ name: 'login', params: { case: type } })
     },
     // 切换tab页
     handleSelect (key, keyPath) {
       switch (key) {
         case '1':
           this.$router.push({ path: '/home' }).catch(err => err)
+          this.$store.dispatch('changeActiveIndex', key)
           break
         case '3':
           this.$router.push({ path: '/mall' }).catch(err => err)
+          this.$store.dispatch('changeActiveIndex', key)
           break
         case '4':
           this.$router.push({ path: '/suggestion' }).catch(err => err)
+          this.$store.dispatch('changeActiveIndex', key)
           break
         case '5':
           this.$router.push({ path: '/note' }).catch(err => err)
+          this.$store.dispatch('changeActiveIndex', key)
           break
       }
     }
@@ -110,7 +107,7 @@ export default {
       background-color: #fff;
     }
     .el-button {
-      margin-top: 13px;
+      margin-top: 14px;
     }
     img {
       height: 100px;
