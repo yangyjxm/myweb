@@ -14,6 +14,12 @@
           <el-menu-item index="2-1">AA计算器</el-menu-item>
           <el-menu-item index="2-2">政务图书馆</el-menu-item>
         </el-submenu>
+        <el-submenu index="6">
+          <template slot="title">黑物</template>
+          <el-menu-item index="6-1">趣味造梦机</el-menu-item>
+          <el-menu-item index="6-2">小黑意见箱</el-menu-item>
+          <el-menu-item index="6-3">菜单管理</el-menu-item>
+        </el-submenu>
         <el-menu-item index="5">笔记</el-menu-item>
         <el-menu-item index="3">商城</el-menu-item>
         <el-menu-item index="4">提建议</el-menu-item>
@@ -28,7 +34,9 @@
     </el-header>
     <vue-scroll :ops="ops">
       <el-main>
-        <router-view />
+        <transition name="fade">
+          <router-view />
+        </transition>
       </el-main>
     </vue-scroll>
   </div>
@@ -65,6 +73,7 @@ export default {
     },
     // 切换tab页
     handleSelect (key, keyPath) {
+      console.log(key)
       switch (key) {
         case '1':
           this.$router.push({ path: '/home' }).catch(err => err)
@@ -80,6 +89,18 @@ export default {
           break
         case '5':
           this.$router.push({ path: '/note' }).catch(err => err)
+          this.$store.dispatch('changeActiveIndex', key)
+          break
+        case '6-2':
+          this.$router.push({ name: 'heiwu-list' }).catch(err => err)
+          this.$store.dispatch('changeActiveIndex', key)
+          break
+        case '6-1':
+          this.$router.push({ name: 'heiwu-funDreamMachine' }).catch(err => err)
+          this.$store.dispatch('changeActiveIndex', key)
+          break
+        case '6-3':
+          this.$router.push({ name: 'heiwu-manage' }).catch(err => err)
           this.$store.dispatch('changeActiveIndex', key)
           break
       }

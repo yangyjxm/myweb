@@ -11,39 +11,46 @@
            v-if="radio === '登录'">
         <el-form ref="loginForm"
                  :model="loginForm"
-                 label-width="80px"
+                 label-width="0px"
                  class="form">
-          <el-form-item label="账号">
-            <el-input v-model="loginForm.account"></el-input>
+          <el-form-item label="">
+            <el-input v-model="loginForm.account"
+                      placeholder="请输入账号"></el-input>
           </el-form-item>
-          <el-form-item label="密码">
+          <el-form-item label="">
             <el-input v-model="loginForm.password"
+                      placeholder="请输入密码"
                       type="password"></el-input>
           </el-form-item>
         </el-form>
         <el-button type="primary"
-                   round>立刻登录</el-button>
+                   round
+                   @click="login()">立刻登录</el-button>
       </div>
       <div class="register"
            v-if="radio !== '登录'">
         <el-form ref="registerForm"
                  :model="registerForm"
-                 label-width="80px"
+                 label-width="0px"
                  class="form">
-          <el-form-item label="注册账号">
-            <el-input v-model="registerForm.account"></el-input>
+          <el-form-item label="">
+            <el-input v-model="registerForm.account"
+                      placeholder="请输入注册账号"></el-input>
           </el-form-item>
-          <el-form-item label="注册密码">
+          <el-form-item label="">
             <el-input v-model="registerForm.password"
+                      placeholder="请输入注册密码"
                       type="password"></el-input>
           </el-form-item>
-          <el-form-item label="确认密码">
+          <el-form-item label="">
             <el-input v-model="registerForm.passwordCheck"
+                      placeholder="确认注册密码"
                       type="password"></el-input>
           </el-form-item>
         </el-form>
         <el-button type="primary"
-                   round>马上注册</el-button>
+                   round
+                   @click="register() ">马上注册</el-button>
       </div>
     </div>
   </div>
@@ -51,6 +58,14 @@
 
 <script>
 import jumpFont from '../components/font/JumpFont'
+// @Component({
+//   components: {
+//     'jump-font': jumpFont
+//   }
+// })
+// export default class login extends Vue {
+
+// }
 export default {
   name: 'login',
   components: {
@@ -71,7 +86,41 @@ export default {
     }
   },
   methods: {
-
+    // 用户登录
+    login () {
+      this.$api.login({
+        user_name: this.loginForm.account,
+        password: this.loginForm.password
+      }).then(res => {
+        if (res.data.resultData.isPass) {
+          this.$message.success('欢迎登录')
+          setTimeout(() => {
+            this.$router.push({ name: 'home' })
+          }, 3000)
+        } else {
+          this.$message.error('用户名与密码有误')
+        }
+      })
+    },
+    // 注册用户
+    register () {
+      let that = this
+      if (this.registerForm.password === this.registerForm.passwordCheck) {
+        this.$api.addNewUser({
+          user_name: this.registerForm.account,
+          password: this.registerForm.password
+        }).then(res => {
+          that.$api.getUserNum().then(res => {
+            that.$message.success('欢迎您成为本站第' + res.data + '位注册用户')
+          })
+          setTimeout(() => {
+            this.$router.push({ name: 'home' })
+          }, 5000)
+        })
+      } else {
+        this.$message.error('两次输入密码不一致')
+      }
+    }
   }
 }
 </script>
@@ -116,8 +165,8 @@ export default {
       border-radius: 50%;
     }
     .form {
-      margin: 5% 0 0 10%;
-      width: 70%;
+      margin: 5% auto;
+      width: 65%;
     }
     .is-round {
       padding: 12px 136px;

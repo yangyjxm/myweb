@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  // baseURL: 'http://111.229.251.142/api/',
-  baseURL: 'http://localhost:1109/',
+  baseURL: '/',
   timeout: 5000
 })
 instance.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'

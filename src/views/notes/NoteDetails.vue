@@ -44,7 +44,7 @@ export default {
 - 全部卸载: yum -y remove mariadb*
 2. 下载并安装mysql的YUM源
 - 下载mysql的YUM源：wget -P /home/yangyjxm http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-- 由于我们是下载到/home/lisonglin目录下，所以先切换到该目录下：cd /home/yangyjxm
+- 由于我们是下载到/home/yangyjxm 目录下，所以先切换到该目录下：cd /home/yangyjxm
 - 安装mysql的YUM源：rpm -ivh mysql57-community-release-el7-11.noarch.rpm
 - 检查mysql的YUM源是否安装成功：yum repolist enabled
 - 查看mysql版本,执行：yum repolist all | grep mysql
@@ -53,10 +53,10 @@ export default {
 yum-config-manager --enable mysql57-community
 yum-config-manager --disable mysql56-community
 3. 安装MySQL
-- yum install mysql-community-server
+- yum install mysql
 安装过程中一直输入"y"就可以了，当出现下面的结果时，就代表mysql数据库安装成功了
 4. 测试
-- 启动mysql服务：systemctl start mysqld
+- 启动mysql服务：systemctl start mysql
 - 启动mysql后，会将初始密码写入日志
 通过 grep 'temporary password'  /var/log/mysqld.log 命令查看
 - 登录mysql：mysql -uroot -p 回车 然后输入默认密码即可登录mysql

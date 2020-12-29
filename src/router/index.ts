@@ -90,6 +90,44 @@ const routes = [
       meta: {
         title: '管理页面'
       }
+    }, {
+      path: 'heiwu-list',
+      name: 'heiwu-list',
+      component: () => import('../views/heiwu/heiwu-suggsetion.vue'),
+      meta: {
+        title: '黑物留言列表页面'
+      }
+    }]
+    // >>>>>>>黑物栏目
+  }, {
+    path: '/heiwu',
+    name: 'heiwu',
+    meta: {
+      title: '黑物'
+    },
+    component: LayoutHeader,
+    redirect: '/heiwu/heiwu-suggsetion',
+    children: [{
+      path: 'heiwu-suggsetion',
+      name: 'heiwu-suggsetion',
+      component: () => import('../views/heiwu/heiwu-suggsetion.vue'),
+      meta: {
+        title: '小黑意见箱列表页面'
+      }
+    }, {
+      path: 'heiwu-funDreamMachine',
+      name: 'heiwu-funDreamMachine',
+      component: () => import('../views/heiwu/heiwu-funDreamMachine.vue'),
+      meta: {
+        title: '趣味造梦机列表页面'
+      }
+    }, {
+      path: 'heiwu-manage',
+      name: 'heiwu-manage',
+      component: () => import('../views/heiwu/heiwu-manage.vue'),
+      meta: {
+        title: '菜单管理'
+      }
     }]
     // >>>>>>>我要提建议栏目
   }, {

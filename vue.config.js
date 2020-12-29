@@ -1,4 +1,4 @@
-const PROXYROOT = 'http://111.229.251.142:8888/'
+const PROXYROOT = 'http://127.0.0.1:8888/'
 const PROXYROOT_NGINX = 'http://111.229.251.142/'
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
@@ -25,14 +25,20 @@ module.exports = {
   devServer: {
     disableHostCheck: true,
     host: 'localhost',
-    port: '1109',
+    port: '1111',
     proxy: {
+      // 连服务器
+      // '/api': {
+      //   target: PROXYROOT_NGINX,
+      //   changeOrigin: true
+      // }
+      // 连本机
       '/api': {
-        target: PROXYROOT_NGINX,
-        changeOrigin: true
-        // pathRewrite: {
-        //   '^/api': ''
-        // }
+        target: PROXYROOT,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
       }
     },
 

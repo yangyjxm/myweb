@@ -75,7 +75,7 @@ export default {
       checkVerificationCode: '',
       rules: {
         title: { required: true, message: '请输入标题', trigger: 'blur' },
-        desc: { required: true, message: '请输入建议内容', trigger: 'blur' },
+        desc: { required: true, message: '请输入建议内容', trigger: '' },
         // name: { required: true, message: '请输入您的姓名', trigger: 'blur' },
         // phone: { required: true, message: '请输入您的电话号码', trigger: 'blur' },
         verificationCode: { required: true, message: '请输入验证码', trigger: 'blur' }

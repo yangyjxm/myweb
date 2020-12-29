@@ -1,5 +1,5 @@
 <template>
-  <div class="management">
+  <div class="heiwu-suggsetion">
     <div class="block">
       <el-form :model="searchForm"
                ref="searchForm"
@@ -21,32 +21,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="下单日期："
-                          prop="createTime">
-              <el-date-picker v-model="searchForm.date"
-                              type="daterange"
-                              range-separator="至"
-                              start-placeholder="开始日期"
-                              end-placeholder="结束日期">
-              </el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="订单状态："
-                          prop="status">
-              <el-select v-model="searchForm.status"
-                         placeholder="请选择订单状态">
-                <el-option v-for="item in statusOptions"
-                           :key="item.value"
-                           :label="item.label"
-                           :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
       </el-form>
       <footer>
         <el-button type="primary"
@@ -58,30 +32,41 @@
       <el-table :data="tableData"
                 style="width: 100%"
                 :row-class-name="tableRowClassName">
-        <el-table-column prop="createTime"
-                         label="下单日期"
-                         width="180">
-        </el-table-column>
         <el-table-column prop="name"
                          label="姓名"
+                         width="100">
+        </el-table-column>
+        <el-table-column prop="phone"
+                         label="联系方式"
+                         width="120">
+        </el-table-column>
+        <el-table-column prop="id"
+                         label="购买订单号">
+        </el-table-column>
+        <el-table-column prop="product"
+                         label="购买产品"
                          width="180">
         </el-table-column>
-        <el-table-column prop="address"
-                         label="地址">
+        <el-table-column prop="date"
+                         label="购买日期">
         </el-table-column>
-        <el-table-column prop="status"
-                         label="订单状态">
+        <el-table-column prop="way"
+                         label="购买渠道">
+        </el-table-column>
+        <el-table-column prop="suggestion"
+                         label="建议"
+                         min-width="200"
+                         align="center">
         </el-table-column>
       </el-table>
     </div>
-    <!-- <div class="welcome">欢 迎 老 板</div> -->
   </div>
 </template>
 
 <script>
 import moment from 'moment'
 export default {
-  name: 'management',
+  name: 'heiwu-suggsetion',
   data () {
     return {
       searchForm: {
@@ -90,37 +75,29 @@ export default {
         date: [],
         status: ''
       },
-      statusOptions: [{
-        value: '10',
-        label: '未付款'
-      }, {
-        value: '20',
-        label: '待发货'
-      }, {
-        value: '30',
-        label: '运输中'
-      }, {
-        value: '40',
-        label: '已签收'
-      }],
       tableData: []
     }
   },
   created () {
     this.submitForm()
+    // this.convertThree('LEETCODEISHIRING')
+    this.replace()
   },
   methods: {
+    replace () {
+      let string = '<table></table>'
+      string = string.replace(/<table/g, '<div><table')
+      string = string.replace('table>', 'table></div>')
+      console.log(string)
+    },
     // 查询
     submitForm () {
-      this.$api.queryOrderList({
+      this.$api.querySuggestionList({
         name: this.searchForm.name,
         phone: this.searchForm.phone,
         createTime: this.searchForm.createTime,
         status: this.searchForm.status
       }).then(res => {
-        res.data.resultData.forEach(item => {
-          item.createTime = this.$moment(item.createTime).format('YYYY-MM-DD HH:mm')
-        })
         this.tableData = res.data.resultData
       })
     },
@@ -135,12 +112,33 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    convertThree (string) {
+      let tmpArray = string.split('')
+      for (let i = 0; i < tmpArray.length; i++) {
+        if (i % 4 === 3) {
+          tmpArray[i] = ' ' + tmpArray[i] + ' '
+        }
+      }
+      string = tmpArray.join('')
+      let array = [[]]
+      let j = 0
+      let index = 0
+      for (let k = 0; k < tmpArray.length / 3; k++) {
+        for (j = 0; j < 3; j++) {
+          array[k][j] = tmpArray[index++]
+        }
+      }
+      console.log('string:' + string)
+    },
+    convert (string, numRows) {
+
     }
   }
 }
 </script>
 <style lang='scss'>
-.management {
+.heiwu-suggsetion {
   .block {
     width: 70%;
     font-size: 60px;
